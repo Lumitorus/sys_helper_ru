@@ -53,16 +53,24 @@ ollama pull qwen2.5:1.5b
 
 ## 4. Запуск API-сервера
 
+### Запуск сервера
 Для запуска Ollama в режиме API-сервера выполните:
 ```bash
-ollama serve
+ollama serve --host 0.0.0.0
 ```
-Сервер запустится по умолчанию на `http://localhost:11434`.
+Сервер запустится по умолчанию на `http://0.0.0.0:11434`, что позволяет принимать подключения извне.
+
+### Открытие порта в фаерволе
+Если на сервере включён `firewalld`, выполните следующие команды для открытия порта:
+```bash
+sudo firewall-cmd --add-port=11434/tcp --permanent
+sudo firewall-cmd --reload
+```
 
 ### Тестирование сервера
 Проверьте состояние сервера:
 ```bash
-curl http://localhost:11434/health
+curl http://<ваш-IP>:11434/health
 ```
 Вы должны увидеть подтверждение, что сервер работает.
 
@@ -73,7 +81,7 @@ curl http://localhost:11434/health
 ### Пример запроса
 Отправьте тестовый запрос для получения ответа от модели:
 ```bash
-curl -X POST http://localhost:11434/api/generate -d '{
+curl -X POST http://<ваш-IP>:11434/api/generate -d '{
   "model": "qwen2.5:1.5b",
   "prompt": "Какова столица Франции?",
   "stream": false
@@ -108,7 +116,7 @@ API вернёт JSON-объект следующего вида:
    After=network.target
 
    [Service]
-   ExecStart=/usr/local/bin/ollama serve
+   ExecStart=/usr/local/bin/ollama serve --host 0.0.0.0
    Restart=always
    User=root
    WorkingDirectory=/root
@@ -160,3 +168,4 @@ sudo systemctl stop ollama.service
 - [Документация API Ollama](https://github.com/ollama/ollama/blob/main/docs/api.md)
 - [Репозиторий Ollama на GitHub](https://github.com/ollama/ollama)
 - [Руководство по установке Docker](https://docs.docker.com/get-docker/) (если требуется)
+
