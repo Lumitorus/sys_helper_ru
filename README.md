@@ -5,19 +5,19 @@
 ## Список руководств
 
 ### Настройка автозапуска Node.js с systemd  
-![Пример автозапуска Node.js](./assets/autostart_nodejs.gif)  
+![Пример автозапуска Node.js](./assests/autostart_nodejs.gif)  
 [Читать руководство](./autostart_systemd_nodejs.md)
 
 ### Настройка Ollama на CentOS  
-![Пример настройки Ollama](./assets/centos_ollama.png)  
+![Пример настройки Ollama](./assests/centos_ollama.png)  
 [Читать руководство](./centos_ollama.md)
 
 ### Обновление пользователя RDP  
-![Обновление RDP пользователя](./assets/rdp_user_update.png)  
+![Обновление RDP пользователя](./assests/rdp_user_update.png)  
 [Читать руководство](./how_to_update_rdp_user_aviable.md)
 
 ### Понижение версии OVF-файла для ESXi  
-![Пример понижения версии OVF](./assets/esxi_downgrade.gif)  
+![Пример понижения версии OVF](./assests/esxi_downgrade.gif)  
 [Читать руководство](./howto_downgrade_version_esxi_ovf_file.md)
 
 ---
