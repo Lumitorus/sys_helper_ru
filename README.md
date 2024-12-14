@@ -9,11 +9,11 @@
 [Читать руководство](./autostart_systemd_nodejs.md)
 
 ### Настройка Ollama на CentOS  
-![Пример настройки Ollama](./assests/centos_ollama.png)  
+![Пример настройки Ollama](./assests/centos_ollama.gif)  
 [Читать руководство](./centos_ollama.md)
 
 ### Обновление пользователя RDP  
-![Обновление RDP пользователя](./assests/rdp_user_update.png)  
+![Обновление RDP пользователя](./assests/rdp_user_update.gif)  
 [Читать руководство](./how_to_update_rdp_user_aviable.md)
 
 ### Понижение версии OVF-файла для ESXi  
