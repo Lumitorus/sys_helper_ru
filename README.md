@@ -4,10 +4,23 @@
 
 ## Список руководств
 
-- [Настройка автозапуска Node.js с systemd](./autostart_systemd_nodejs.md)
-- [Настройка Ollama на CentOS](./centos_ollama.md)
-- [Разблокировка минимального количества RDP пользователей](./how_to_update_rdp_user_aviable.md)
-- [Понижение версии OVF-файла для ESXi](./howto_downgrade_version_esxi_ovf_file.md)
+### Настройка автозапуска Node.js с systemd  
+![Пример автозапуска Node.js](./assets/autostart_nodejs.gif)  
+[Читать руководство](./autostart_systemd_nodejs.md)
+
+### Настройка Ollama на CentOS  
+![Пример настройки Ollama](./assets/centos_ollama.png)  
+[Читать руководство](./centos_ollama.md)
+
+### Обновление пользователя RDP  
+![Обновление RDP пользователя](./assets/rdp_user_update.png)  
+[Читать руководство](./how_to_update_rdp_user_aviable.md)
+
+### Понижение версии OVF-файла для ESXi  
+![Пример понижения версии OVF](./assets/esxi_downgrade.gif)  
+[Читать руководство](./howto_downgrade_version_esxi_ovf_file.md)
+
+---
 
 ## Как использовать
 
