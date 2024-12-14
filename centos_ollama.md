@@ -1,107 +1,107 @@
-# Setting Up Ollama with Qwen 2.5:1.5b on CentOS and API Integration
+# Настройка Ollama с моделью Qwen 2.5:1.5b на CentOS и интеграция через API
 
-This guide will help you install Ollama, set up the Qwen 2.5:1.5b model, configure API access, and enable automatic startup using `systemd` on CentOS.
+Данное руководство поможет вам установить Ollama, настроить модель Qwen 2.5:1.5b, обеспечить доступ через API и включить автоматический запуск с использованием `systemd` на CentOS.
 
 ---
 
-## 1. Prerequisites
+## 1. Предварительные требования
 
-### System Requirements
-- **Operating System**: CentOS 7 or later.
-- **Dependencies**:
-  - Docker (if required by Ollama).
-  - Sufficient disk space for model storage.
-  - Adequate RAM and CPU resources for model execution.
+### Системные требования
+- **Операционная система**: CentOS 7 или более новая.
+- **Зависимости**:
+  - Docker (если требуется Ollama).
+  - Достаточно места на диске для хранения модели.
+  - Достаточно оперативной памяти и вычислительных ресурсов для запуска модели.
 
-### Install Required Tools
-Ensure `curl` is installed for API testing:
+### Установка необходимых инструментов
+Убедитесь, что `curl` установлен для тестирования API:
 ```bash
 sudo yum install -y curl
 ```
 
 ---
 
-## 2. Install Ollama CLI
+## 2. Установка Ollama CLI
 
-### Download and Install
-1. Visit the [Ollama website](https://ollama.com) or their [GitHub releases page](https://github.com/ollama/ollama/releases).
-2. Download the appropriate binary for CentOS.
-3. Move the binary to a directory in your `PATH`:
+### Загрузка и установка
+1. Перейдите на [сайт Ollama](https://ollama.com) или на страницу [релизов GitHub](https://github.com/ollama/ollama/releases).
+2. Скачайте бинарный файл, подходящий для CentOS.
+3. Переместите файл в каталог, указанный в `PATH`:
    ```bash
    sudo mv ollama /usr/local/bin/
    sudo chmod +x /usr/local/bin/ollama
    ```
 
-### Verify Installation
-Run the following command to verify the installation:
+### Проверка установки
+Запустите следующую команду для проверки установки:
 ```bash
 ollama --version
 ```
 
 ---
 
-## 3. Load the Qwen 2.5:1.5b Model
+## 3. Загрузка модели Qwen 2.5:1.5b
 
-Download the model using the `pull` command:
+Скачайте модель с помощью команды `pull`:
 ```bash
 ollama pull qwen2.5:1.5b
 ```
 
-This will fetch the model and store it in Ollama's local cache.
+Эта команда загрузит модель и сохранит её в локальном хранилище Ollama.
 
 ---
 
-## 4. Start the API Server
+## 4. Запуск API-сервера
 
-To run Ollama as an API server:
+Для запуска Ollama в режиме API-сервера выполните:
 ```bash
 ollama serve
 ```
-The server will start on `http://localhost:11434` by default.
+Сервер запустится по умолчанию на `http://localhost:11434`.
 
-### Test the Server
-Check the server health with:
+### Тестирование сервера
+Проверьте состояние сервера:
 ```bash
 curl http://localhost:11434/health
 ```
-You should see a response confirming the server is running.
+Вы должны увидеть подтверждение, что сервер работает.
 
 ---
 
-## 5. Using the API
+## 5. Использование API
 
-### Example Request
-Send a test request to generate a response from the model:
+### Пример запроса
+Отправьте тестовый запрос для получения ответа от модели:
 ```bash
 curl -X POST http://localhost:11434/api/generate -d '{
   "model": "qwen2.5:1.5b",
-  "prompt": "What is the capital of France?",
+  "prompt": "Какова столица Франции?",
   "stream": false
 }'
 ```
 
-### Example Response
-The API will return a JSON object like this:
+### Пример ответа
+API вернёт JSON-объект следующего вида:
 ```json
 {
   "model": "qwen2.5:1.5b",
-  "response": "The capital of France is Paris.",
+  "response": "Столица Франции - Париж.",
   "done": true
 }
 ```
 
 ---
 
-## 6. Configure Automatic Startup with systemd
+## 6. Настройка автозапуска через systemd
 
-Create a `systemd` service file to ensure the Ollama server starts automatically on boot.
+Создайте `systemd`-сервис для автоматического запуска Ollama при старте системы.
 
-### Create Service File
-1. Create a new file:
+### Создание файла сервиса
+1. Создайте новый файл:
    ```bash
    sudo nano /etc/systemd/system/ollama.service
    ```
-2. Add the following configuration:
+2. Добавьте следующую конфигурацию:
    ```ini
    [Unit]
    Description=Ollama API Server
@@ -117,46 +117,46 @@ Create a `systemd` service file to ensure the Ollama server starts automatically
    WantedBy=multi-user.target
    ```
 
-### Enable and Start the Service
-1. Reload systemd to recognize the new service:
+### Включение и запуск сервиса
+1. Обновите конфигурацию systemd:
    ```bash
    sudo systemctl daemon-reload
    ```
-2. Enable the service to start on boot:
+2. Включите сервис для автозапуска:
    ```bash
    sudo systemctl enable ollama.service
    ```
-3. Start the service:
+3. Запустите сервис:
    ```bash
    sudo systemctl start ollama.service
    ```
-4. Check the status:
+4. Проверьте статус сервиса:
    ```bash
    sudo systemctl status ollama.service
    ```
 
 ---
 
-## 7. Additional Notes
+## 7. Дополнительные сведения
 
-### Updating Ollama
-To update the Ollama CLI, download the latest version from their [GitHub releases page](https://github.com/ollama/ollama/releases) and replace the existing binary.
+### Обновление Ollama
+Для обновления Ollama CLI скачайте последнюю версию с их [страницы релизов GitHub](https://github.com/ollama/ollama/releases) и замените существующий бинарный файл.
 
-### Logs
-View service logs for debugging:
+### Логи
+Просмотрите журналы сервиса для устранения неполадок:
 ```bash
 sudo journalctl -u ollama.service
 ```
 
-### Stopping the Service
-To stop the service manually:
+### Остановка сервиса
+Чтобы вручную остановить сервис:
 ```bash
 sudo systemctl stop ollama.service
 ```
 
 ---
 
-## 8. References
-- [Ollama API Documentation](https://github.com/ollama/ollama/blob/main/docs/api.md)
-- [Ollama GitHub Repository](https://github.com/ollama/ollama)
-- [Docker Installation Guide](https://docs.docker.com/get-docker/) (if applicable)
+## 8. Полезные ссылки
+- [Документация API Ollama](https://github.com/ollama/ollama/blob/main/docs/api.md)
+- [Репозиторий Ollama на GitHub](https://github.com/ollama/ollama)
+- [Руководство по установке Docker](https://docs.docker.com/get-docker/) (если требуется)
